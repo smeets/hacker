@@ -1,9 +1,8 @@
 var static = require('node-static');
-var file = new static.Server('./public');
+var http = require('http');
+var file = new(static.Server)();
 
-require('http').createServer(function (request, response) {
-    request.addListener('end', function () {
-        file.serve(request, response, function (e, res) {
-        });
-    }).resume();
+// Serve files :3
+var app = http.createServer(function (req, res) {
+	file.serve(req, res);
 }).listen(8080);
